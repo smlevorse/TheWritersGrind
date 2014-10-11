@@ -55,7 +55,7 @@
 				}
 			}
 			
-			"""if (isset($_POST['submitregister'])) {
+			if (isset($_POST['submitregister'])) {
 				#Register form has been submitted.
 				
 				$usernameregister = $_POST['usernameregister'];
@@ -69,7 +69,6 @@
 					$wrongpasswords = true;
 				} else {
 					#Check if username is already taken.
-					echo "good so far";
 					
 					try {
 						$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
@@ -83,20 +82,28 @@
 							
 							$takenusername = true;
 						}
-						
 						$stmt = null;
 						
-						if (!$wrongpasswords || !$takenusername) {
+						if (($wrongpasswords == true) || ($takenusername == true)) {
 							#Something went wrong. Don't submit form.
 							return false;
 						}
+						
+						#It passed all validation! Time to insert into the table.
+						$insertStmt = $dbh->prepare("INSERT INTO users ( username, password, emailaddress, bio ) values ( ?, ?, ?, ? )");
+						$insertStmt->bindParam(1, $usernameregister);
+						$insertStmt->bindParam(2, $passwordregister);
+						$insertStmt->bindParam(3, $emailregister);
+						$insertStmt->bindParam(4, $bioregister);
+						$insertStmt->execute();
+						echo "User created!";
 						
 						$dbh = null;
 					} catch (PDOException $e) {
 						echo $e->getMessage();
 					}
 				}
-			}"""
+			}
         ?>
         
         <!-- Add your site or application content here -->
@@ -104,7 +111,7 @@
         <div id="head"> 
             <img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/>
             <form name="login" action="index.php" method="POST">
-                <label for="username">Username: </label>
+                <label for="username">Usernsame: </label>
              <input type="text" name="username">
                 <label for="password">Password: </label>
                 <input type="text" name="password">
@@ -121,8 +128,8 @@
             <input type="text" name="emailregister" maxlength="80">
             <label for="password">Password: </label>
             <input type="password" name="passwordregister" maxlength="20">
-            <label for="confirm">Confirm: </label> <?php if($wrongpasswords) { echo "<span style='color: red;'>Passwords do not match.</span"; } ?>
-            <input type="text" name="confirmregister" maxlength="20">
+            <label for="confirm">Confirm: </label>
+            <input type="password" name="confirmregister" maxlength="20"> <?php if($wrongpasswords) { echo "<span style='color: red;'>Passwords do not match.</span"; } ?>
             <label for="bio">Biography: </label>
             <input type="text" name="bioregister" maxlength="300">
 			<input type="submit" value="Create an account" name="submitregister" />
