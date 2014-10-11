@@ -42,7 +42,7 @@
             <label for="email">E-Mail: </label>
             <input type="text" name="email">
             <label for="password">Password: </label>
-            <input type="text" name="password">
+            <input type="password" name="password">
             <label for="confirm">Confirm: </label>
             <input type="text" name="confirm">
             <label for="bio">Biography: </label>
