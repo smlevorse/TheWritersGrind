@@ -26,6 +26,7 @@
 			$host = "localhost";
 			$dbname = "simplesocialnetwork";
 			$wrongpasswords = false;
+			$takenusername = false;
 		
             if (isset($_POST['submitlogin'])) {
 				#Login form has been pressed
@@ -67,17 +68,30 @@
 					#passwords don't match.
 					$wrongpasswords = true;
 				} else {
+					#Check if username is already taken.
 					
-				}
-				
-				try {
-					$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-					
-					
-					
-					$dbh = null;
-				} catch (PDOException $e) {
-					echo $e->getMessage();
+					try {
+						$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+						
+						$stmt = $dbh->prepare("SELECT * FROM users WHERE username = ?");
+						$stmt->bindParam(1, $usernameregister);
+						$stmt->execute();
+						
+						if ($stmt->rowCount() > 0) {
+							#username is already taken!
+							
+							$takenusername = true;
+						}
+						
+						if (!$wrongpasswords || !$takenusername) {
+							#Something went wrong. Don't submit form.
+							return false;
+						}
+						
+						$dbh = null;
+					} catch (PDOException $e) {
+						echo $e->getMessage();
+					}
 				}
 			}
         ?>
@@ -99,13 +113,13 @@
 
         <form name="register" action="register.php" method="POST">
             <label for="username">Username: </label>
-            <input type="text" name="usernameregister">
+            <input type="text" name="usernameregister"> <?php if($takenusername) { echo "<span style='color: red;'>Username is taken.</span"; } ?>
             <label for="email">E-Mail: </label>
             <input type="text" name="emailregister">
             <label for="password">Password: </label>
             <input type="password" name="passwordregister">
-            <label for="confirm">Confirm: </label> <?php if($wrongpasswords) { echo "<span style='color: red;'>Passwords do not match.</span"; } ?>
-            <input type="text" name="confirmregister">
+            <label for="confirm">Confirm: </label>
+            <input type="text" name="confirmregister"> <?php if($wrongpasswords) { echo "<span style='color: red;'>Passwords do not match.</span"; } ?>
             <label for="bio">Biography: </label>
             <input type="text" name="bioregister">
 			<input type="submit" value="Create an account" name="submitregister" />
