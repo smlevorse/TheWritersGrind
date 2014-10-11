@@ -42,7 +42,7 @@
 					$stmt->execute();
 					
 					if ($stmt->rowCount() != 1) {
-						echo "NO USER FOUND";
+						echo "<span style='color:red;'>NO USER FOUND</span>";
 					} else {
 						echo "yay! You're a registered user.";
 					}
@@ -58,9 +58,9 @@
         <img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/>
         <form name="login" action="index.php" method="POST">
             <label for="username">Username: </label>
-            <input type="text" name="username">
+            <input type="text" value="<?php if (isset($_POST['username'])) { echo $_POST['username']; } ?>" name="username">
             <label for="password">Password: </label>
-            <input type="text" name="password">
+            <input type="password" name="password">
             <input type="Submit" name="submit" value="Register"/>
         </form>
 
