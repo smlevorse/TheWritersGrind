@@ -21,32 +21,60 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <?php
-            if (isset($_POST['submit'])) {
-                echo "FORM SUBMITTED SUCCESSFULLY";
-            }
+            if (isset($_POST['submitlogin'])) {
+				#Login form has been pressed
+				
+				$user = "wj2389sj";
+				$pass = "R298fjsk3";
+				$host = "localhost";
+				$dbname = "simplesocialnetwork";
+				$username = $_POST['username'];
+				$password = md5($_POST['password']);
+				
+				try {
+					$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+					
+					$stmt = $dbh->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+					$stmt->bindParam(1, $username);
+					$stmt->bindParam(2, $password);
+					$stmt->setFetchMode(PDO::FETCH_ASSOC);
+					$stmt->execute();
+					
+					if ($stmt->rowCount() != 1) {
+						echo "NO USER FOUND";
+					} else {
+						echo "yay! You're a registered user.";
+					}
+					
+					$dbh = null;
+				} catch (PDOException $e) {
+					echo $e->getMessage();
+				}
+			}
         ?>
         
         <!-- Add your site or application content here -->
-        <a href="index.php"><img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/></a>
-        <form name="login" action="index.php" method="POST">
+        <img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/>
+        <form name="login" action="register.php" method="POST">
             <label for="username">Username: </label>
-            <input type="text" name="username">
+            <input type="text" name="usernamelogin" value="<?php if (isset($_POST['usernamelogin'])) { echo $_POST['usernamelogin']; } ?>">
             <label for="password">Password: </label>
-            <input type="text" name="password">
-            <input type="Submit" name="submit" value="Register"/>
+            <input type="password" name="passwordlogin">
+            <input type="Submit" name="submitlogin" value="Login"/>
         </form>
 
         <form name="register" action="register.php" method="POST">
             <label for="username">Username: </label>
-            <input type="text" name="username">
+            <input type="text" name="usernameregister">
             <label for="email">E-Mail: </label>
-            <input type="text" name="email">
+            <input type="text" name="emailregister">
             <label for="password">Password: </label>
-            <input type="text" name="password">
+            <input type="text" name="passwordregister">
             <label for="confirm">Confirm: </label>
-            <input type="text" name="confirm">
+            <input type="text" name="confirmregister">
             <label for="bio">Biography: </label>
-            <input type="text" name="bio">
+            <input type="text" name="bioregister">
+			<input type="submit" value="Create an account" name="submitregister" />
         </form>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
