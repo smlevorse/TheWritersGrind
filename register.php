@@ -60,8 +60,8 @@
 				
 				$usernameregister = $_POST['usernameregister'];
 				$emailregister = $_POST['emailregister'];
-				$passwordregister = $_POST['passwordregister'];
-				$confirmregister = $_POST['confirmregister'];
+				$passwordregister = md5($_POST['passwordregister']);
+				$confirmregister = md5($_POST['confirmregister']);
 				$bioregister = $_POST['bioregister'];
 				
 				if ($passwordregister != $confirmregister) {
@@ -107,17 +107,16 @@
         ?>
         
         <!-- Add your site or application content here -->
-        <div id="head">
-            <a href="index.php"><img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/></a>
-            <div id="login"> 
-                <form name="login" action="index.php" method="POST">
-                    <label for="username">Username: </label>
-                    <input type="text" name="username">
-                    <label for="password">Password: </label>
-                    <input type="text" name="password">
-                    <input type="Submit" name="submit" value="Submit"/>
-                </form>
-            </div>
+
+        <div id="head"> 
+            <img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/>
+            <form name="login" action="index.php" method="POST">
+                <label for="username">Usernsame: </label>
+             <input type="text" name="username">
+                <label for="password">Password: </label>
+                <input type="text" name="password">
+                <input type="Submit" name="submit" value="Register"/>
+            </form>
         </div>
 
 
