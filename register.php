@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>The Writer's Grind</title>
+        <title>Register - The Writer's Grind</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -20,26 +20,12 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
-		<?php
-			if (isset($_POST['submit'])) {
-				#Login form has been pressed
-				
-				$user = "wj2389sj";
-				$pass = "R298fjsk3";
-				$host = "localhost";
-				$dbname = "simplesocialnetwork";
-				
-				try {
-					$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-					echo "SUCCESS";
-					$dbh = null;
-				} catch () {
-					echo $e->getMessage();
-				}
-			}
-		?>
-		
+        <?php
+            if (isset($_POST['submit'])) {
+                echo "FORM SUBMITTED SUCCESSFULLY";
+            }
+        ?>
+        
         <!-- Add your site or application content here -->
         <img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/>
         <form name="login" action="index.php" method="POST">
@@ -50,8 +36,18 @@
             <input type="Submit" name="submit" value="Register"/>
         </form>
 
-        <
-
+        <form name="register" action="register.php" method="POST">
+            <label for="username">Username: </label>
+            <input type="text" name="username">
+            <label for="email">E-Mail: </label>
+            <input type="text" name="email">
+            <label for="password">Password: </label>
+            <input type="text" name="password">
+            <label for="confirm">Confirm: </label>
+            <input type="text" name="confirm">
+            <label for="bio">Biography: </label>
+            <input type="text" name="bio">
+        </form>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
@@ -66,21 +62,5 @@
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
-
-        <div id="genres">
-            <h1>Genres</h1>
-            <ul>
-                <li>Adventure</li>
-                <li>Fantasty</li>
-                <li>Science Fiction</li>
-                <li>Historacle Fiction</li>
-                <li>Poetry</li>
-            </ul>
-        </div>
-
-        <!--TO DO: The main content of the webpage and footer?
-        <div id="content"></div>
-        <div id="foooter"></div>
-        -->
     </body>
 </html>
