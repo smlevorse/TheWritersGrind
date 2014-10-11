@@ -23,7 +23,20 @@
 
 		<?php
 			if (isset($_POST['submit'])) {
-				echo "FORM SUBMITTED SUCCESSFULLY";
+				#Login form has been pressed
+				
+				$user = "wj2389sj";
+				$pass = "R298fjsk3";
+				$host = "localhost";
+				$dbname = "simplesocialnetwork";
+				
+				try {
+					$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+					echo "SUCCESS";
+					$dbh = null;
+				} catch () {
+					echo $e->getMessage();
+				}
 			}
 		?>
 		
