@@ -99,15 +99,15 @@
 
         <form name="register" action="register.php" method="POST">
             <label for="username">Username: </label>
-            <input type="text" name="usernameregister">
+            <input type="text" name="usernameregister" maxlength="20">
             <label for="email">E-Mail: </label>
-            <input type="text" name="emailregister">
+            <input type="text" name="emailregister" maxlength="80">
             <label for="password">Password: </label>
-            <input type="password" name="passwordregister">
+            <input type="password" name="passwordregister" maxlength="20">
             <label for="confirm">Confirm: </label> <?php if($wrongpasswords) { echo "<span style='color: red;'>Passwords do not match.</span"; } ?>
-            <input type="text" name="confirmregister">
+            <input type="text" name="confirmregister" maxlength="20">
             <label for="bio">Biography: </label>
-            <input type="text" name="bioregister">
+            <input type="text" name="bioregister" maxlength="300">
 			<input type="submit" value="Create an account" name="submitregister" />
         </form>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
