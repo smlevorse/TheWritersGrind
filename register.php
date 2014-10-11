@@ -21,13 +21,15 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <?php
+			$user = "wj2389sj";
+			$pass = "R298fjsk3";
+			$host = "localhost";
+			$dbname = "simplesocialnetwork";
+			$wrongpasswords = false;
+		
             if (isset($_POST['submitlogin'])) {
 				#Login form has been pressed
 				
-				$user = "wj2389sj";
-				$pass = "R298fjsk3";
-				$host = "localhost";
-				$dbname = "simplesocialnetwork";
 				$username = $_POST['username'];
 				$password = md5($_POST['password']);
 				
@@ -45,6 +47,33 @@
 					} else {
 						echo "yay! You're a registered user.";
 					}
+					
+					$dbh = null;
+				} catch (PDOException $e) {
+					echo $e->getMessage();
+				}
+			}
+			
+			if (isset($_POST['submitregister'])) {
+				#Register form has been submitted.
+				
+				$usernameregister = $_POST['usernameregister'];
+				$emailregister = $_POST['emailregister'];
+				$passwordregister = $_POST['passwordregister'];
+				$confirmregister = $_POST['confirmregister'];
+				$bioregister = $_POST['bioregister'];
+				
+				if ($passwordregister != $confirmregister) {
+					#passwords don't match.
+					$wrongpasswords = true;
+				} else {
+					
+				}
+				
+				try {
+					$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+					
+					
 					
 					$dbh = null;
 				} catch (PDOException $e) {
@@ -75,7 +104,7 @@
             <input type="text" name="emailregister">
             <label for="password">Password: </label>
             <input type="password" name="passwordregister">
-            <label for="confirm">Confirm: </label>
+            <label for="confirm">Confirm: </label> <?php if($wrongpasswords) { echo "<span style='color: red;'>Passwords do not match.</span"; } ?>
             <input type="text" name="confirmregister">
             <label for="bio">Biography: </label>
             <input type="text" name="bioregister">
