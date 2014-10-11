@@ -44,7 +44,12 @@
 					if ($stmt->rowCount() != 1) {
 						echo "<span style='color:red;'>NO USER FOUND</span>";
 					} else {
-						echo "yay! You're a registered user.";
+						#They're a registered user.
+						$userID = $stmt->fetch()['id'];
+						
+						session_start();
+						$_SESSION['username'] = $username;
+						$_SESSION['userID'] = $userID;
 					}
 					
 					$dbh = null;
@@ -63,7 +68,7 @@
                     <label for="username">Username: </label>
                     <input type="text" name="username">
                     <label for="password">Password: </label>
-                    <input type="text" name="password">
+                    <input type="password" name="password">
                     <input type="Submit" name="submit" value="Submit"/>
                 </form>
                 <a href="register.php">Register for an account</a>
