@@ -53,7 +53,7 @@ hr {
 }
 
 input{
-	display: inline;
+	display: block;
 }
 
 /*
@@ -102,7 +102,9 @@ textarea {
    ========================================================================== */
 
 
-
+.logo{
+	displa:inline;
+}
 
 
 
