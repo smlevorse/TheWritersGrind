@@ -27,14 +27,17 @@
         ?>
         
         <!-- Add your site or application content here -->
-        <a href="index.php"><img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/></a>
-        <form name="login" action="index.php" method="POST">
-            <label for="username">Username: </label>
-            <input type="text" name="username">
-            <label for="password">Password: </label>
-            <input type="text" name="password">
-            <input type="Submit" name="submit" value="Register"/>
-        </form>
+        <div id="head"> 
+            <img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/>
+            <form name="login" action="index.php" method="POST">
+                <label for="username">Username: </label>
+             <input type="text" name="username">
+                <label for="password">Password: </label>
+                <input type="text" name="password">
+                <input type="Submit" name="submit" value="Register"/>
+            </form>
+            <a href="register.php">Register for an account</a>
+        </div>
 
         <form name="register" action="register.php" method="POST">
             <label for="username">Username: </label>
