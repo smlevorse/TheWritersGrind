@@ -27,7 +27,7 @@
         ?>
         
         <!-- Add your site or application content here -->
-        <img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/>
+        <a href="index.php"><img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/></a>
         <form name="login" action="index.php" method="POST">
             <label for="username">Username: </label>
             <input type="text" name="username">
