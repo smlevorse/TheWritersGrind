@@ -59,6 +59,7 @@
         <div id="head">
             <a href="index.php"><img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/></a>
             <div id="login"> 
+                <h1>Login</h1>
                 <form name="login" action="index.php" method="POST">
                     <label for="username">Username: </label>
                     <input type="text" name="username">

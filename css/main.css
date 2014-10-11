@@ -113,6 +113,12 @@ div #login{
 	border: 1pt black solid;
 }
 
+div #login h1{
+	font-size: 12pt;
+	padding: 0em;
+	margin: 0em;
+}
+
 input{
 	display: block;
 }
