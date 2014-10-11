@@ -52,10 +52,6 @@ hr {
     padding: 0;
 }
 
-input{
-	display: block;
-}
-
 /*
  * Remove the gap between images, videos, audio and canvas and the bottom of
  * their containers: h5bp.com/i/440
@@ -103,9 +99,23 @@ textarea {
 
 
 .logo{
-	displa:inline;
+	display:inline;
 }
 
+div #head{
+	border: 1pt black solid;
+	margin: 50px;
+}
+
+div #login{
+	display: inline;
+	float:right;
+	border: 1pt black solid;
+}
+
+input{
+	display: block;
+}
 
 
 
