@@ -21,6 +21,12 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
+		<?php
+			if (isset($_POST['submit'])) {
+				echo "FORM SUBMITTED SUCCESSFULLY";
+			}
+		?>
+		
         <!-- Add your site or application content here -->
         <img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/>
         <form name="login" action="index.php" method="POST">
@@ -28,7 +34,7 @@
             <input type="text" name="username">
             <label for="password">Password: </label>
             <input type="text" name="password">
-            <input type="Submit" value="Register"/>
+            <input type="Submit" name="submit" value="Register"/>
         </form>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
