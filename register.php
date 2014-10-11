@@ -26,6 +26,7 @@
 			$host = "localhost";
 			$dbname = "simplesocialnetwork";
 			$wrongpasswords = false;
+			$takenusername = false;
 		
             if (isset($_POST['submitlogin'])) {
 				#Login form has been pressed
@@ -54,7 +55,7 @@
 				}
 			}
 			
-			if (isset($_POST['submitregister'])) {
+			"""if (isset($_POST['submitregister'])) {
 				#Register form has been submitted.
 				
 				$usernameregister = $_POST['usernameregister'];
@@ -67,19 +68,35 @@
 					#passwords don't match.
 					$wrongpasswords = true;
 				} else {
+					#Check if username is already taken.
+					echo "good so far";
 					
+					try {
+						$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+						
+						$stmt = $dbh->prepare("SELECT * FROM users WHERE username = ?");
+						$stmt->bindParam(1, $usernameregister);
+						$stmt->execute();
+						
+						if ($stmt->rowCount() > 0) {
+							#username is already taken!
+							
+							$takenusername = true;
+						}
+						
+						$stmt = null;
+						
+						if (!$wrongpasswords || !$takenusername) {
+							#Something went wrong. Don't submit form.
+							return false;
+						}
+						
+						$dbh = null;
+					} catch (PDOException $e) {
+						echo $e->getMessage();
+					}
 				}
-				
-				try {
-					$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-					
-					
-					
-					$dbh = null;
-				} catch (PDOException $e) {
-					echo $e->getMessage();
-				}
-			}
+			}"""
         ?>
         
         <!-- Add your site or application content here -->
@@ -101,7 +118,7 @@
 
         <form name="register" action="register.php" method="POST">
             <label for="username">Username: </label>
-            <input type="text" name="usernameregister" maxlength="20">
+            <input type="text" name="usernameregister" maxlength="20"> <?php if($takenusername) { echo "<span style='color: red;'>Username is taken.</span"; } ?>
             <label for="email">E-Mail: </label>
             <input type="text" name="emailregister" maxlength="80">
             <label for="password">Password: </label>
