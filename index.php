@@ -29,12 +29,26 @@
 				$pass = "R298fjsk3";
 				$host = "localhost";
 				$dbname = "simplesocialnetwork";
+				$username = $_POST['username'];
+				$password = md5($_POST['password']);
 				
 				try {
 					$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-					echo "SUCCESS";
+					
+					$stmt = $dbh->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+					$stmt->bindParam(1, $username);
+					$stmt->bindParam(2, $password);
+					$stmt->setFetchMode(PDO::FETCH_ASSOC);
+					$stmt->execute();
+					
+					if ($stmt->rowCount() != 1) {
+						echo "NO USER FOUND";
+					} else {
+						echo "yay! You're a registered user.";
+					}
+					
 					$dbh = null;
-				} catch () {
+				} catch (PDOException $e) {
 					echo $e->getMessage();
 				}
 			}
@@ -42,7 +56,7 @@
 		?>
 		
         <!-- Add your site or application content here -->
-        <a href="index.php"><img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/></a>
+        <img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/>
         <form name="login" action="index.php" method="POST">
             <label for="username">Username: </label>
             <input type="text" name="username">
@@ -50,8 +64,6 @@
             <input type="text" name="password">
             <input type="Submit" name="submit" value="Register"/>
         </form>
-
-        
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
@@ -67,21 +79,5 @@
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
             ga('create','UA-XXXXX-X');ga('send','pageview');
         </script>
-
-        <div id="genres">
-            <h1>Genres</h1>
-            <ul>
-                <li>Adventure</li>
-                <li>Fantasty</li>
-                <li>Science Fiction</li>
-                <li>Historacle Fiction</li>
-                <li>Poetry</li>
-            </ul>
-        </div>
-
-        <!--TO DO: The main content of the webpage and footer?
-        <div id="content"></div>
-        <div id="foooter"></div>
-        -->
     </body>
 </html>
