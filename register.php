@@ -55,7 +55,7 @@
 				}
 			}
 			
-			if (isset($_POST['submitregister'])) {
+			"""if (isset($_POST['submitregister'])) {
 				#Register form has been submitted.
 				
 				$usernameregister = $_POST['usernameregister'];
@@ -69,6 +69,7 @@
 					$wrongpasswords = true;
 				} else {
 					#Check if username is already taken.
+					echo "good so far";
 					
 					try {
 						$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
@@ -83,6 +84,8 @@
 							$takenusername = true;
 						}
 						
+						$stmt = null;
+						
 						if (!$wrongpasswords || !$takenusername) {
 							#Something went wrong. Don't submit form.
 							return false;
@@ -93,7 +96,7 @@
 						echo $e->getMessage();
 					}
 				}
-			}
+			}"""
         ?>
         
         <!-- Add your site or application content here -->
