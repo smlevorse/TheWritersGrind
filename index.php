@@ -65,6 +65,7 @@
 		?>
 		
         <!-- Add your site or application content here -->
+
 		<div id="wrapper">
 			<div id="head">
 				<a href="index.php"><img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/></a>
@@ -131,6 +132,7 @@ Nam justo risus, ullamcorper non orci placerat, posuere tincidunt nunc. Donec ma
 				&copy; 2014 Nathan Holt, Sean Levorse, Maranda De Stefano.
 			</div>
 		</div>
+
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>

@@ -96,8 +96,6 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-
-
 .logo{
 	display:inline;
 }
@@ -109,6 +107,12 @@ div #head{
 div #login{
 	display: inline;
 	float:right;
+}
+
+div #login h1{
+	font-size: 12pt;
+	padding: 0em;
+	margin: 0em;
 }
 
 input{
@@ -132,12 +136,6 @@ input{
 	text-align: center;
 	margin-top: 10px;
 }
-
-
-
-
-
-
 
 
 /* ==========================================================================
