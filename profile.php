@@ -72,21 +72,32 @@
             <div id="head">
     			<a href="index.php"><img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/></a>
     			<?php
-    				if (!isset($_SESSION['username'])) {
-    			?>
-    				<div id="login"> 
-    					<form name="login" action="index.php" method="POST">
-    						<label for="username">Username: </label>
-    						<input type="text" name="username">
-    						<label for="password">Password: </label>
-    						<input type="password" name="password">
-    						<input type="Submit" name="submit" value="Submit"/>
-    					</form>
-    					<a href="register.php">Register for an account</a>
-    				</div>
-    			<?php
-    				}
-    			?>
+					if (!isset($_SESSION['username'])) {
+						#They're not logged in.
+				?>
+					<div id="login"> 
+						<form name="login" action="index.php" method="POST">
+							<label for="username">Username: </label>
+							<input type="text" name="username">
+							<label for="password">Password: </label>
+							<input type="password" name="password">
+							<input type="Submit" name="submit" value="Submit"/>
+						</form>
+						<a href="register.php">Register for an account</a>
+					</div>
+				<?php
+					} else {
+						#They're signed in.
+				?>
+					<div id="login">
+						Welcome back, <a href="profile.php?username=<?php echo $_SESSION['username']; ?>"> <?php echo $_SESSION['username']; ?> </a>
+						<form action="logout.php">
+							<input type="submit" value="Logout">
+						</form>
+					</div>
+				<?php
+					}
+				?>
     			<nav>
 		        	<ul>
 		        		<li>Browse</li>
@@ -140,11 +151,16 @@
 							$stmt->bindParam(1, $username);
 							$stmt->setFetchMode(PDO::FETCH_ASSOC);
 							$stmt->execute();
-							$result = $stmt->fetch();
-							echo "<strong>Username:</strong> " . $result['username'] . "<br />";
-							echo "<strong>User ID:</strong> " . $result['id'] . "<br />";
-							echo "<strong>Total submissions:</strong> " . $result['submissions'] . "<br />";
-							echo "<strong>Biography:</strong> " . $result['bio'] . "<br />";
+							if ($stmt->rowCount() == 1) {
+								#User exists.
+								$result = $stmt->fetch();
+								echo "<strong>Username:</strong> " . $result['username'] . "<br />";
+								echo "<strong>User ID:</strong> " . $result['id'] . "<br />";
+								echo "<strong>Total submissions:</strong> " . $result['submissions'] . "<br />";
+								echo "<strong>Biography:</strong> " . $result['bio'] . "<br />";
+							} else {
+								echo "<strong>User $username does not exist.</strong>";
+							}
 						} catch (PDOException $e) {
 							echo $e->getMessage();
 						}
