@@ -117,18 +117,6 @@
         
         <!-- Add your site or application content here -->
 
-        <div id="head"> 
-            <img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/>
-            <form name="login" action="index.php" method="POST">
-                <label for="username">Username: </label>
-                <input type="text" name="username">
-                <label for="password">Password: </label>
-                <input type="text" name="password">
-                <input type="Submit" name="submit" value="Register"/>
-            </form>
-        </div>
-
-
         <form name="register" action="register.php" method="POST">
             <label for="username">Username: </label>
             <input type="text" name="usernameregister" maxlength="20"> <?php if($takenusername) { echo "<span style='color: red;'>Username is taken.</span"; } ?>
