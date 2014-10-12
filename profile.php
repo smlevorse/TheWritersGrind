@@ -68,7 +68,7 @@
 		?>
 		
         <!-- Add your site or application content here -->
-        <div id="wrappers">
+        <div id="wrapper">
             <div id="head">
     			<a href="index.php"><img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/></a>
     			<?php
@@ -113,6 +113,7 @@
 					$password = md5($_POST['password']);
 					
 					if (!isset($_GET['username'])) {
+						#GET username variable wasn't passed. Assume they want their own profile.
 						try {
 							$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
 				
@@ -122,9 +123,28 @@
 							$stmt->setFetchMode(PDO::FETCH_ASSOC);
 							$stmt->execute();
 							$result = $stmt->fetch();
-							echo "Username: " . $result['username'] . "<br />";
-							echo "Total submissions: " . $result['submissions'] . "<br />";
-							echo "Biography: " . $result['bio'] . "<br />";
+							echo "<strong>Username:</strong> " . $result['username'] . "<br />";
+							echo "<strong>Biography:</strong> " . $result['id'] . "<br />";
+							echo "<strong>Total submissions:</strong> " . $result['submissions'] . "<br />";
+							echo "<strong>Biography:</strong> " . $result['bio'] . "<br />";
+						} catch (PDOException $e) {
+							echo $e->getMessage();
+						}
+					} else {
+						#GET username variable was passed. Pull up their profile.
+						try {
+							$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+				
+							$stmt = $dbh->prepare("SELECT * FROM users WHERE username = ?");
+							$username = $_GET['username'];
+							$stmt->bindParam(1, $username);
+							$stmt->setFetchMode(PDO::FETCH_ASSOC);
+							$stmt->execute();
+							$result = $stmt->fetch();
+							echo "<strong>Username:</strong> " . $result['username'] . "<br />";
+							echo "<strong>User ID:</strong> " . $result['id'] . "<br />";
+							echo "<strong>Total submissions:</strong> " . $result['submissions'] . "<br />";
+							echo "<strong>Biography:</strong> " . $result['bio'] . "<br />";
 						} catch (PDOException $e) {
 							echo $e->getMessage();
 						}

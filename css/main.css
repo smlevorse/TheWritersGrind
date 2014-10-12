@@ -139,7 +139,7 @@ input{
 	margin-top: 10px;
 }
 
-nav ul li, nav ul li input{
+nav ul, nav ul li, nav ul li input{
 	display: inline-table;
 }
 /* ==========================================================================
