@@ -86,7 +86,9 @@
 		        		<li>Create</li>
 		        		<li>	
 		        			<form>
-		        				<label name="search"
+		        				<label for="search">Search: </label>
+		        				<input type="text" name="search">
+		        				<input type="Submit" name="submit" value="Search">
 		        			</form>
 		        		</li>
 		        	</ul>
@@ -116,34 +118,3 @@
         </script>
     </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<nav>
-        	<ul>
-        		<li>Browse</li>
-        		<li>Create</li>
-        		<li>	
-        			<form>
-        				<label name="search"
-        			</form>
-        		</li>
-        	</ul>
-        </nav>

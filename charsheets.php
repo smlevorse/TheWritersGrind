@@ -165,6 +165,7 @@
                     <input type="text" name="fetishes">
                     <label for="orientation">Sexual orientation: </label>
                     <input type="text" name="orientation">
+                    <input type="Submit" name="submit" value="Submit">
                 </form>
             </div>
 
