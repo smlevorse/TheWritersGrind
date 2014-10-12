@@ -136,9 +136,19 @@
 							$stmt->execute();
 							$result = $stmt->fetch();
 							echo "<strong>Username:</strong> " . $result['username'] . "<br />";
-							echo "<strong>Biography:</strong> " . $result['id'] . "<br />";
+							echo "<strong>User ID:</strong> " . $result['id'] . "<br />";
 							echo "<strong>Total submissions:</strong> " . $result['submissions'] . "<br />";
 							echo "<strong>Biography:</strong> " . $result['bio'] . "<br />";
+							
+							echo "<h2>Vault</h2>";
+							
+							$storyStmt = $dbh->prepare("SELECT * FROM stories WHERE author = ?");
+							$storyStmt->bindParam(1, $username);
+							$storyStmt->setFetchMode(PDO::FETCH_ASSOC);
+							$storyStmt->execute();
+							while ($result = $storyStmt->fetch()) {
+								echo "<a href=\"story.php?id=" . $result["id"] . "\">" . $result["title"] . "</a><br />";
+							}
 						} catch (PDOException $e) {
 							echo $e->getMessage();
 						}
@@ -159,6 +169,20 @@
 								echo "<strong>User ID:</strong> " . $result['id'] . "<br />";
 								echo "<strong>Total submissions:</strong> " . $result['submissions'] . "<br />";
 								echo "<strong>Biography:</strong> " . $result['bio'] . "<br />";
+								
+								echo "<h2>Vault</h2>";
+								
+								$storyStmt = $dbh->prepare("SELECT * FROM stories WHERE author = ?");
+								$storyStmt->bindParam(1, $username);
+								$storyStmt->setFetchMode(PDO::FETCH_ASSOC);
+								$storyStmt->execute();
+								while ($result = $storyStmt->fetch()) {
+									echo "<a href=\"story.php?id=" . $result["id"] . "\">" . $result["title"] . "</a><br />";
+								}
+								#foreach ($results as $result) {
+								#	echo $result["title"] . "<br />";
+								#}"""
+								#var_dump($result);
 							} else {
 								echo "<strong>User $username does not exist.</strong>";
 							}
