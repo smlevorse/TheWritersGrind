@@ -159,6 +159,15 @@ h1{
 	text-decoration: none;
 }
 
+#links{
+	display: block;
+	border: 1pt black solid;
+	text-decoration: none;
+	text-align: left;
+	width: auto;
+	padding:10%;
+	position: relative;
+}
 /* ==========================================================================
    Helper classes
    ========================================================================== */

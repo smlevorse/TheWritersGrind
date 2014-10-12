@@ -113,7 +113,13 @@
                 </nav>
 
             <div id="body">
-                
+                <div id="links">
+                    <ul>
+                        <li><a href="plotgen.php">Plot Generator</a></li>
+                        <li><a href="charsheets.php">Character Sheets</a></li>
+                        <li><a href="submit.php">Submit a Story</a></li>
+                    </ul>
+                </div>
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget condimentum tellus, sed rutrum libero. Fusce ipsum nisl, sodales vitae scelerisque eu, viverra in nulla. Fusce quis euismod magna, facilisis pulvinar sem. Duis eget tincidunt mauris, nec porttitor sapien. Vestibulum in ex sit amet lorem elementum tempus. Phasellus elementum sodales enim, eu porta odio condimentum quis. Morbi vehicula justo ac volutpat pulvinar. Nunc id turpis in erat condimentum ultrices sit amet et ipsum.
 
