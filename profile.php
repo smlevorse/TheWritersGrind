@@ -61,24 +61,43 @@
 		?>
 		
         <!-- Add your site or application content here -->
-        <div id="head">
-			<a href="index.php"><img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/></a>
-			<?php
-				if (!isset($_SESSION['username'])) {
-			?>
-				<div id="login"> 
-					<form name="login" action="index.php" method="POST">
-						<label for="username">Username: </label>
-						<input type="text" name="username">
-						<label for="password">Password: </label>
-						<input type="password" name="password">
-						<input type="Submit" name="submit" value="Submit"/>
-					</form>
-					<a href="register.php">Register for an account</a>
-				</div>
-			<?php
-				}
-			?>
+        <div id="wrappers">
+            <div id="head">
+    			<a href="index.php"><img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/></a>
+    			<?php
+    				if (!isset($_SESSION['username'])) {
+    			?>
+    				<div id="login"> 
+    					<form name="login" action="index.php" method="POST">
+    						<label for="username">Username: </label>
+    						<input type="text" name="username">
+    						<label for="password">Password: </label>
+    						<input type="password" name="password">
+    						<input type="Submit" name="submit" value="Submit"/>
+    					</form>
+    					<a href="register.php">Register for an account</a>
+    				</div>
+    			<?php
+    				}
+    			?>
+    			<nav>
+		        	<ul>
+		        		<li>Browse</li>
+		        		<li>Create</li>
+		        		<li>	
+		        			<form>
+		        				<label name="search"
+		        			</form>
+		        		</li>
+		        	</ul>
+		        </nav>
+            </div>
+            <div id="body">
+                <!--laceholder-->
+            </div>
+            <div id="footer">
+                &copy; 2014 Nathan Holt, Sean Levorse, Maranda De Stefano.
+            </div>
         </div>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -97,3 +116,34 @@
         </script>
     </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<nav>
+        	<ul>
+        		<li>Browse</li>
+        		<li>Create</li>
+        		<li>	
+        			<form>
+        				<label name="search"
+        			</form>
+        		</li>
+        	</ul>
+        </nav>
