@@ -97,6 +97,11 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
+*{
+	width: 95%;
+}
+
+
 
 .logo{
 	display:inline;
@@ -105,6 +110,7 @@ textarea {
 div #head{
 	border: 1pt black solid;
 	margin: 50px;
+	width: 100%;
 }
 
 div #login{
