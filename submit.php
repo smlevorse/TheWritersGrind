@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if (!isset($_SESSION['username'])) {
+        #They're not logged in. Redirect to index.php
+        header("Location:index.php");
+    }
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -6,7 +13,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Submit - The Writer's Grind</title>
+        <title>The Writer's Grind</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -14,6 +21,7 @@
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
+        <link href='http://fonts.googleapis.com/css?family=Rokkitt|Yanone+Kaffeesatz|Pacifico|Dancing+Script:400,700' rel='stylesheet' type='text/css'>
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
@@ -21,26 +29,105 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-		<?php
-			if (isset($_POST['submit'])) {
-				echo "FORM SUBMITTED SUCCESSFULLY";
-			}
-		?>
-		
+        <?php
+            if (isset($_POST['submit'])) {
+                #Login form has been pressed
+                
+                $user = "wj2389sj";
+                $pass = "R298fjsk3";
+                $host = "localhost";
+                $dbname = "simplesocialnetwork";
+                $username = $_POST['username'];
+                $password = md5($_POST['password']);
+                
+                try {
+                    $dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+                    
+                    $stmt = $dbh->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+                    $stmt->bindParam(1, $username);
+                    $stmt->bindParam(2, $password);
+                    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                    $stmt->execute();
+                    
+                    if ($stmt->rowCount() != 1) {
+                        echo "<span style='color:red;'>NO USER FOUND</span>";
+                    } else {
+                        #They're a registered user.
+                        $userID = $stmt->fetch()['id'];
+                        
+                        session_start();
+                        $_SESSION['username'] = $username;
+                        $_SESSION['userID'] = $userID;
+                    }
+                    
+                    $dbh = null;
+                } catch (PDOException $e) {
+                    echo $e->getMessage();
+                }
+            }
+            
+        ?>
+        
         <!-- Add your site or application content here -->
-        <div id="head"> 
-            <img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/>
-            <form name="login" action="index.php" method="POST">
-                <label for="username">Username: </label>
-             <input type="text" name="username">
-                <label for="password">Password: </label>
-                <input type="text" name="password">
-                <input type="Submit" name="submit" value="Register"/>
-            </form>
-            <a href="register.php">Register for an account</a>
+
+        <div id="wrapper">
+            <div id="head">
+                <a href="index.php"><img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/></a>
+                <?php
+                    if (!isset($_SESSION['username'])) {
+                        #They're not logged in.
+                ?>
+                    <div id="login"> 
+                        <form name="login" action="index.php" method="POST">
+                            <label for="username">Username: </label>
+                            <input type="text" name="username">
+                            <label for="password">Password: </label>
+                            <input type="password" name="password">
+                            <input type="Submit" name="submit" value="Submit"/>
+                        </form>
+                        <a href="register.php">Register for an account</a>
+                    </div>
+                <?php
+                    } else {
+                        #They're signed in.
+                ?>
+                    <div id="login">
+                        Welcome back, <a href="profile.php?username=<?php echo $_SESSION['username']; ?>"> <?php echo $_SESSION['username']; ?> </a>
+                        <form action="logout.php">
+                            <input type="submit" value="Logout">
+                        </form>
+                    </div>
+                <?php
+                    }
+                ?>
+            </div>
+                 <nav>
+                    <ul>
+                        <li>Browse</li>
+                        <li>Create</li>
+                        <li>    
+                            <form>
+                                <label for="search">Search: </label>
+                                <input type="text" name="search">
+                                <input type="Submit" name="submit" value="Search">
+                            </form>
+                        </li>
+                    </ul>
+                </nav>
+
+            <div id="body">
+                <form name="story" action="submit.php" method="POST">
+                    <label for="title">Title: </label>
+                    <input type="text" name="title">
+                    <label for="rating">Rating: </label>
+                    <input type="text" name="rating">
+                    <label for="summary">Summary: </label>
+                    <input type="textarea" name="summary">
+                    <label for="story">Story text: </label>
+                    <input type="textarea" name="story">
+                </form>
+            </div>
         </div>
-
-
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
