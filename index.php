@@ -1,5 +1,5 @@
 <?php
-	session_start();
+    session_start();
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +18,7 @@
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
+        <link href='http://fonts.googleapis.com/css?family=Rokkitt|Yanone+Kaffeesatz|Pacifico|Dancing+Script:400,700' rel='stylesheet' type='text/css'>
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
@@ -25,79 +26,79 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-		<?php
-			if (isset($_POST['submit'])) {
-				#Login form has been pressed
-				
-				$user = "wj2389sj";
-				$pass = "R298fjsk3";
-				$host = "localhost";
-				$dbname = "simplesocialnetwork";
-				$username = $_POST['username'];
-				$password = md5($_POST['password']);
-				
-				try {
-					$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-					
-					$stmt = $dbh->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
-					$stmt->bindParam(1, $username);
-					$stmt->bindParam(2, $password);
-					$stmt->setFetchMode(PDO::FETCH_ASSOC);
-					$stmt->execute();
-					
-					if ($stmt->rowCount() != 1) {
-						echo "<span style='color:red;'>NO USER FOUND</span>";
-					} else {
-						#They're a registered user.
-						$userID = $stmt->fetch()['id'];
-						
-						session_start();
-						$_SESSION['username'] = $username;
-						$_SESSION['userID'] = $userID;
-					}
-					
-					$dbh = null;
-				} catch (PDOException $e) {
-					echo $e->getMessage();
-				}
-			}
+        <?php
+            if (isset($_POST['submit'])) {
+                #Login form has been pressed
+                
+                $user = "wj2389sj";
+                $pass = "R298fjsk3";
+                $host = "localhost";
+                $dbname = "simplesocialnetwork";
+                $username = $_POST['username'];
+                $password = md5($_POST['password']);
+                
+                try {
+                    $dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+                    
+                    $stmt = $dbh->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+                    $stmt->bindParam(1, $username);
+                    $stmt->bindParam(2, $password);
+                    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                    $stmt->execute();
+                    
+                    if ($stmt->rowCount() != 1) {
+                        echo "<span style='color:red;'>NO USER FOUND</span>";
+                    } else {
+                        #They're a registered user.
+                        $userID = $stmt->fetch()['id'];
+                        
+                        session_start();
+                        $_SESSION['username'] = $username;
+                        $_SESSION['userID'] = $userID;
+                    }
+                    
+                    $dbh = null;
+                } catch (PDOException $e) {
+                    echo $e->getMessage();
+                }
+            }
             
-		?>
-		
+        ?>
+        
         <!-- Add your site or application content here -->
 
-		<div id="wrapper">
-			<div id="head">
-				<a href="index.php"><img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/></a>
-				<?php
-					if (!isset($_SESSION['username'])) {
-						#They're not logged in.
-				?>
-					<div id="login"> 
-						<form name="login" action="index.php" method="POST">
-							<label for="username">Username: </label>
-							<input type="text" name="username">
-							<label for="password">Password: </label>
-							<input type="password" name="password">
-							<input type="Submit" name="submit" value="Submit"/>
-						</form>
-						<a href="register.php">Register for an account</a>
-					</div>
-				<?php
-					} else {
-						#They're signed in.
-				?>
-					<div id="login">
-						Welcome back, <a href="profile.php?username=<?php echo $_SESSION['username']; ?>"> <?php echo $_SESSION['username']; ?> </a>
-						<form action="logout.php">
-							<input type="submit" value="Logout">
-						</form>
-					</div>
-				<?php
-					}
-				?>
-			</div>
-			     <nav>
+        <div id="wrapper">
+            <div id="head">
+                <a href="index.php"><img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/></a>
+                <?php
+                    if (!isset($_SESSION['username'])) {
+                        #They're not logged in.
+                ?>
+                    <div id="login"> 
+                        <form name="login" action="index.php" method="POST">
+                            <label for="username">Username: </label>
+                            <input type="text" name="username">
+                            <label for="password">Password: </label>
+                            <input type="password" name="password">
+                            <input type="Submit" name="submit" value="Submit"/>
+                        </form>
+                        <a href="register.php">Register for an account</a>
+                    </div>
+                <?php
+                    } else {
+                        #They're signed in.
+                ?>
+                    <div id="login">
+                        Welcome back, <a href="profile.php?username=<?php echo $_SESSION['username']; ?>"> <?php echo $_SESSION['username']; ?> </a>
+                        <form action="logout.php">
+                            <input type="submit" value="Logout">
+                        </form>
+                    </div>
+                <?php
+                    }
+                ?>
+            </div>
+                 <nav>
                     <ul>
                         <li>Browse</li>
                         <li>Create</li>
@@ -111,8 +112,8 @@
                     </ul>
                 </nav>
 
-			<div id="body">
-				
+            <div id="body">
+                
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget condimentum tellus, sed rutrum libero. Fusce ipsum nisl, sodales vitae scelerisque eu, viverra in nulla. Fusce quis euismod magna, facilisis pulvinar sem. Duis eget tincidunt mauris, nec porttitor sapien. Vestibulum in ex sit amet lorem elementum tempus. Phasellus elementum sodales enim, eu porta odio condimentum quis. Morbi vehicula justo ac volutpat pulvinar. Nunc id turpis in erat condimentum ultrices sit amet et ipsum.
 
@@ -143,11 +144,11 @@ Vestibulum efficitur neque sem, eu hendrerit dui vulputate vel. Vestibulum eget 
 Maecenas rhoncus ex eget nunc fringilla, gravida ornare lorem rhoncus. Aliquam accumsan ullamcorper fringilla. Donec iaculis sapien eu orci maximus, eu ornare est consequat. In turpis mauris, vestibulum ut accumsan at, congue nec dolor. Nam nunc tellus, laoreet ut congue non, tempus sed ante. Ut feugiat efficitur mattis. Morbi risus orci, dignissim nec gravida vitae, tincidunt sed sem. Donec pulvinar, magna non aliquam cursus, ipsum mi eleifend ipsum, ac euismod dui mauris ac nunc. Integer vitae felis sed diam egestas laoreet ut a urna. Maecenas risus neque, laoreet vitae blandit quis, gravida nec mi. Donec felis risus, hendrerit vitae commodo quis, aliquet sed eros. Suspendisse eu mollis enim. Suspendisse nec feugiat tortor.
 
 Nam justo risus, ullamcorper non orci placerat, posuere tincidunt nunc. Donec malesuada justo tellus, et vulputate orci iaculis ut. Praesent in viverra diam. Curabitur consequat sapien orci, sed vestibulum risus pharetra sed. Integer ac nisi bibendum, facilisis erat vel, iaculis tellus. Nunc at nisl volutpat, volutpat est a, sollicitudin magna. Maecenas non blandit lectus, nec interdum nunc. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean elementum sagittis mauris, et fermentum est posuere at. Mauris tortor nisl, ornare sit amet iaculis eu, mollis nec libero. Vivamus eleifend est at magna suscipit, vel vehicula quam pellentesque. Nam tristique nisi ac nisl ornare pulvinar. Proin fringilla in purus lacinia feugiat. Duis quis vestibulum tellus. Nullam molestie, purus at feugiat aliquet, est est blandit odio, at cursus orci ante a turpis. Aenean faucibus aliquet dictum. 
-			</div>
-			<div id="footer">
-				&copy; 2014 Nathan Holt, Sean Levorse, Maranda De Stefano.
-			</div>
-		</div>
+            </div>
+            <div id="footer">
+                &copy; 2014 Nathan Holt, Sean Levorse, Maranda De Stefano.
+            </div>
+        </div>
 
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

@@ -1,10 +1,10 @@
 <?php
-	session_start();
-	
-	if (isset($_SESSION['username']) && isset($_SESSION['userID'])) {
-		#They're logged in already! Redirect them to the index page.
-		header("Location:index.php");
-	}
+    session_start();
+    
+    if (isset($_SESSION['username']) && isset($_SESSION['userID'])) {
+        #They're logged in already! Redirect them to the index page.
+        header("Location:index.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +23,7 @@
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
+        <link href='http://fonts.googleapis.com/css?family=Rokkitt|Yanone+Kaffeesatz|Pacifico|Dancing+Script:400,700' rel='stylesheet' type='text/css'>
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
@@ -30,91 +31,91 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <?php
-			$user = "wj2389sj";
-			$pass = "R298fjsk3";
-			$host = "localhost";
-			$dbname = "simplesocialnetwork";
-			$wrongpasswords = false;
-			$takenusername = false;
-		
-            if (isset($_POST['submitlogin'])) {
-				#Login form has been pressed
-				
-				$username = $_POST['username'];
-				$password = md5($_POST['password']);
-				
-				try {
-					$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-					
-					$stmt = $dbh->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
-					$stmt->bindParam(1, $username);
-					$stmt->bindParam(2, $password);
-					$stmt->setFetchMode(PDO::FETCH_ASSOC);
-					$stmt->execute();
-					
-					if ($stmt->rowCount() != 1) {
-						echo "NO USER FOUND";
-					} else {
-						echo "yay! You're a registered user.";
-					}
-					
-					$dbh = null;
-				} catch (PDOException $e) {
-					echo $e->getMessage();
-				}
-			}
-			
-			if (isset($_POST['submitregister'])) {
-				#Register form has been submitted.
-				
-				$usernameregister = $_POST['usernameregister'];
-				$emailregister = $_POST['emailregister'];
-				$passwordregister = md5($_POST['passwordregister']);
-				$confirmregister = md5($_POST['confirmregister']);
-				$bioregister = $_POST['bioregister'];
-				
-				if ($passwordregister != $confirmregister) {
-					#passwords don't match.
-					$wrongpasswords = true;
-				} else {
-					#Check if username is already taken.
-					
-					try {
-						$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-						
-						$stmt = $dbh->prepare("SELECT * FROM users WHERE username = ?");
-						$stmt->bindParam(1, $usernameregister);
-						$stmt->execute();
-						
-						if ($stmt->rowCount() > 0) {
-							#username is already taken!
-							
-							$takenusername = true;
-						}
-						$stmt = null;
-						
-						if (($wrongpasswords == true) || ($takenusername == true)) {
-							#Something went wrong. Don't submit form.
-							#nothing
-						} else {
-							#It passed all validation! Time to insert into the table.
-							$insertStmt = $dbh->prepare("INSERT INTO users ( username, password, emailaddress, bio ) values ( ?, ?, ?, ? )");
-							$insertStmt->bindParam(1, $usernameregister);
-							$insertStmt->bindParam(2, $passwordregister);
-							$insertStmt->bindParam(3, $emailregister);
-							$insertStmt->bindParam(4, $bioregister);
-							$insertStmt->execute();
-							echo "User created!";
-						}
-						
-						$dbh = null;
-					} catch (PDOException $e) {
-						echo $e->getMessage();
-					}
-				}
-			}
-        ?>
+            $user = "wj2389sj";
+            $pass = "R298fjsk3";
+            $host = "localhost";
+            $dbname = "simplesocialnetwork";
+            $wrongpasswords = false;
+            $takenusername = false;
         
+            if (isset($_POST['submitlogin'])) {
+                #Login form has been pressed
+                
+                $username = $_POST['username'];
+                $password = md5($_POST['password']);
+                
+                try {
+                    $dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+                    
+                    $stmt = $dbh->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
+                    $stmt->bindParam(1, $username);
+                    $stmt->bindParam(2, $password);
+                    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+                    $stmt->execute();
+                    
+                    if ($stmt->rowCount() != 1) {
+                        echo "NO USER FOUND";
+                    } else {
+                        echo "yay! You're a registered user.";
+                    }
+                    
+                    $dbh = null;
+                } catch (PDOException $e) {
+                    echo $e->getMessage();
+                }
+            }
+            
+            if (isset($_POST['submitregister'])) {
+                #Register form has been submitted.
+                
+                $usernameregister = $_POST['usernameregister'];
+                $emailregister = $_POST['emailregister'];
+                $passwordregister = md5($_POST['passwordregister']);
+                $confirmregister = md5($_POST['confirmregister']);
+                $bioregister = $_POST['bioregister'];
+                
+                if ($passwordregister != $confirmregister) {
+                    #passwords don't match.
+                    $wrongpasswords = true;
+                } else {
+                    #Check if username is already taken.
+                    
+                    try {
+                        $dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+                        
+                        $stmt = $dbh->prepare("SELECT * FROM users WHERE username = ?");
+                        $stmt->bindParam(1, $usernameregister);
+                        $stmt->execute();
+                        
+                        if ($stmt->rowCount() > 0) {
+                            #username is already taken!
+                            
+                            $takenusername = true;
+                        }
+                        $stmt = null;
+                        
+                        if (($wrongpasswords == true) || ($takenusername == true)) {
+                            #Something went wrong. Don't submit form.
+                            #nothing
+                        } else {
+                            #It passed all validation! Time to insert into the table.
+                            $insertStmt = $dbh->prepare("INSERT INTO users ( username, password, emailaddress, bio ) values ( ?, ?, ?, ? )");
+                            $insertStmt->bindParam(1, $usernameregister);
+                            $insertStmt->bindParam(2, $passwordregister);
+                            $insertStmt->bindParam(3, $emailregister);
+                            $insertStmt->bindParam(4, $bioregister);
+                            $insertStmt->execute();
+                            echo "User created!";
+                        }
+                        
+                        $dbh = null;
+                    } catch (PDOException $e) {
+                        echo $e->getMessage();
+                    }
+                }
+            }
+        ?>
+
         <nav>
             <ul>
                 <li>Browse</li>
@@ -143,7 +144,7 @@
             <input type="password" name="confirmregister" maxlength="20"> <?php if($wrongpasswords) { echo "<span style='color: red;'>Passwords do not match.</span"; } ?>
             <label for="bio">Biography: </label>
             <input type="text" name="bioregister" maxlength="300">
-			<input type="submit" value="Create an account" name="submitregister" />
+            <input type="submit" value="Create an account" name="submitregister" />
         </form>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>

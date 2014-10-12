@@ -146,6 +146,13 @@ nav ul, nav ul li, nav ul li input{
 h1{
 	text-align: center;
 }
+
+#goodbye{
+	font-family: 'Dancing Script', cursive;
+	color:#303000;
+	font-size: 3em;
+}
+
 /* ==========================================================================
    Helper classes
    ========================================================================== */

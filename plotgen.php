@@ -18,6 +18,7 @@
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
+        <link href='http://fonts.googleapis.com/css?family=Rokkitt|Yanone+Kaffeesatz|Pacifico|Dancing+Script:400,700' rel='stylesheet' type='text/css'>
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body>
@@ -89,9 +90,6 @@
 				?>
 					<div id="login">
 						Welcome back, <a href="profile.php?username=<?php echo $_SESSION['username']; ?>"> <?php echo $_SESSION['username']; ?> </a>
-						<form action="logout.php">
-							<input type="submit" value="Logout">
-						</form>
 					</div>
 				<?php
 					}
@@ -113,41 +111,10 @@
 			
 			<div id="body">
 				<h1>Randomized plot:</h1>
-				<h2>
 				<?php
-					$character = "";
-					$plot = "";
-					$user = "wj2389sj";
-					$pass = "R298fjsk3";
-					$host = "localhost";
-					$dbname = "simplesocialnetwork";
-					$username = $_POST['username'];
-					$password = md5($_POST['password']);
 					
-					try {
-						$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-						
-						$stmt = $dbh->prepare("SELECT text FROM storyideas WHERE type = 'character' ORDER BY RAND() LIMIT 1");
-						$stmt->setFetchMode(PDO::FETCH_ASSOC);
-						$stmt->execute();
-						
-						$result = $stmt->fetch();
-						$character = $result["text"];
-						
-						$stmt2 = $dbh->prepare("SELECT text FROM storyideas WHERE type = 'plot' ORDER BY RAND() LIMIT 1");
-						
-						$stmt2->setFetchMode(PDO::FETCH_ASSOC);
-						$stmt2->execute();
-						
-						$result2 = $stmt2->fetch();
-						$plot = $result2["text"];
-						
-						echo $character . " " . $plot;
-					} catch (PDOException $e) {
-						echo $e->getMessage();
-					}
 				?>
-				</h2>
+ 
 			</div>
 			<div id="footer">
 				&copy; 2014 Nathan Holt, Sean Levorse, Maranda De Stefano.
