@@ -111,7 +111,7 @@
         <div id="head"> 
             <img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/>
             <form name="login" action="index.php" method="POST">
-                <label for="username">Usernsame: </label>
+                <label for="username">Username: </label>
              <input type="text" name="username">
                 <label for="password">Password: </label>
                 <input type="text" name="password">
