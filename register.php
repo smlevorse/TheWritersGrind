@@ -86,17 +86,17 @@
 						
 						if (($wrongpasswords == true) || ($takenusername == true)) {
 							#Something went wrong. Don't submit form.
-							return false;
+							#nothing
+						} else {
+							#It passed all validation! Time to insert into the table.
+							$insertStmt = $dbh->prepare("INSERT INTO users ( username, password, emailaddress, bio ) values ( ?, ?, ?, ? )");
+							$insertStmt->bindParam(1, $usernameregister);
+							$insertStmt->bindParam(2, $passwordregister);
+							$insertStmt->bindParam(3, $emailregister);
+							$insertStmt->bindParam(4, $bioregister);
+							$insertStmt->execute();
+							echo "User created!";
 						}
-						
-						#It passed all validation! Time to insert into the table.
-						$insertStmt = $dbh->prepare("INSERT INTO users ( username, password, emailaddress, bio ) values ( ?, ?, ?, ? )");
-						$insertStmt->bindParam(1, $usernameregister);
-						$insertStmt->bindParam(2, $passwordregister);
-						$insertStmt->bindParam(3, $emailregister);
-						$insertStmt->bindParam(4, $bioregister);
-						$insertStmt->execute();
-						echo "User created!";
 						
 						$dbh = null;
 					} catch (PDOException $e) {
