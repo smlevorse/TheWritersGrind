@@ -89,23 +89,13 @@
 				?>
 					<div id="login">
 						Welcome back, <a href="profile.php?username=<?php echo $_SESSION['username']; ?>"> <?php echo $_SESSION['username']; ?> </a>
+						<form action="logout.php">
+							<input type="submit" value="Logout">
+						</form>
 					</div>
 				<?php
 					}
 				?>
-                <nav>
-                    <ul>
-                        <li>Browse</li>
-                        <li>Create</li>
-                        <li>    
-                            <form>
-                                <label for="search">Search: </label>
-                                <input type="text" name="search">
-                                <input type="Submit" name="submit" value="Search">
-                            </form>
-                        </li>
-                    </ul>
-                </nav>
 			</div>
 			
 			<div id="body">
