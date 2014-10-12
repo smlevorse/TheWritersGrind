@@ -96,9 +96,9 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-img.logo{
+img #logo{
 	display:inline;
-	width:567;
+	width:756;
 	height:auto;
 }
 
@@ -151,6 +151,7 @@ h1{
 	font-family: 'Dancing Script', cursive;
 	color:#303000;
 	font-size: 3em;
+	vertical-align: bottom;
 }
 
 /* ==========================================================================

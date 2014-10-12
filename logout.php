@@ -31,9 +31,10 @@
         <!-- Add your site or application content here -->
 
         <div id="wrapper">
-            <div id="body">
-                <h1 id="goodbye">See you soon!</h1>
+            <div id="goodbye">
+                <h1 >See you soon!</h1>
                 <img src="res/logout.png" alt="Us waving you goodbye"/>
+                <a href="index.html"><p>Click here to return to the homepage</p></a>
             </div>
         </div>
 
