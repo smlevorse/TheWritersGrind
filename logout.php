@@ -31,12 +31,11 @@
         <!-- Add your site or application content here -->
 
         <div id="wrapper">
-                <div id="body">
-                    <h1 id="goodbye">See you soon!</h1>
-                    <img src="res/logout.png" alt="Us waving you goodbye"/>
-
-                </div>
+            <div id="body">
+                <h1 id="goodbye">See you soon!</h1>
+                <img src="res/logout.png" alt="Us waving you goodbye"/>
             </div>
+        </div>
 
 
 
