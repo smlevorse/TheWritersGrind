@@ -28,45 +28,6 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
-        <?php
-            if (isset($_POST['submit'])) {
-                #Login form has been pressed
-                
-                $user = "wj2389sj";
-                $pass = "R298fjsk3";
-                $host = "localhost";
-                $dbname = "simplesocialnetwork";
-                $username = $_POST['username'];
-                $password = md5($_POST['password']);
-                
-                try {
-                    $dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-                    
-                    $stmt = $dbh->prepare("SELECT * FROM users WHERE username = ? AND password = ?");
-                    $stmt->bindParam(1, $username);
-                    $stmt->bindParam(2, $password);
-                    $stmt->setFetchMode(PDO::FETCH_ASSOC);
-                    $stmt->execute();
-                    
-                    if ($stmt->rowCount() != 1) {
-                        echo "<span style='color:red;'>NO USER FOUND</span>";
-                    } else {
-                        #They're a registered user.
-                        $userID = $stmt->fetch()['id'];
-                        
-                        session_start();
-                        $_SESSION['username'] = $username;
-                        $_SESSION['userID'] = $userID;
-                    }
-                    
-                    $dbh = null;
-                } catch (PDOException $e) {
-                    echo $e->getMessage();
-                }
-            }
-            
-        ?>
         
         <!-- Add your site or application content here -->
 
@@ -116,15 +77,76 @@
                 </nav>
 
             <div id="body">
+				<?php
+					if (isset($_POST['submit'])) {
+						$missingTitle = false;
+						$missingRating = false;
+						$missingSummary = false;
+						$missingStory = false;
+						
+						$title = $_POST['title'];
+						$rating = $_POST['rating'];
+						$summary = $_POST['summary'];
+						$story = $_POST['story'];
+						
+						if (empty($title)) {
+							$missingTitle = true;
+						}
+						if (empty($rating)) {
+							$missingRating = true;
+						}
+						if (empty($summary)) {
+							$missingSummary = true;
+						}
+						if (empty($story)) {
+							$missingStory = true;
+						}
+						
+						if ($missingRating || $missingStory || $missingSummary || $missingTitle) {
+							#one or more are missing.
+						} else {
+							#fields are filled out. We can now add to database!
+							$user = "wj2389sj";
+							$pass = "R298fjsk3";
+							$host = "localhost";
+							$dbname = "simplesocialnetwork";
+							$wrongpasswords = false;
+							$takenusername = false;
+							
+							try {
+								$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+								$insertStmt = $dbh->prepare("INSERT INTO stories ( id, summary, title, story, rating, author ) values ( NULL, ?, ?, ?, ?, ? )");
+								$username = $_SESSION['username'];
+								$insertStmt->bindParam(1, $summary);
+								$insertStmt->bindParam(2, $title);
+								$insertStmt->bindParam(3, $story);
+								$insertStmt->bindParam(4, $rating);
+								$insertStmt->bindParam(5, $username);
+								$insertStmt->execute();
+								
+								$updateStmt = $dbh->prepare("UPDATE users SET submissions = submissions + 1 WHERE username = ?");
+								$updateStmt->bindParam(1, $username);
+								$updateStmt->execute();
+								
+								echo "Story has been submitted! <br />";
+								echo "<a href='profile.php'>Click here to go back to your profile.</a>";
+								die();
+							} catch (PDOException $e) {
+								echo $e->getMessage();
+							}
+						}
+					}
+				?>
                 <form name="story" action="submit.php" method="POST">
                     <label for="title">Title: </label>
-                    <input type="text" name="title">
+                    <input type="text" name="title" value="<?php if(isset($title)) { echo $title; } ?>"><?php if($missingTitle) { echo "<span style='color: red;'>Missing title.</span><br />"; } ?>
                     <label for="rating">Rating: </label>
-                    <input type="text" name="rating">
-                    <label for="summary">Summary: </label>
-                    <input type="textarea" name="summary">
-                    <label for="story">Story text: </label>
-                    <input type="textarea" name="story">
+                    <input type="text" name="rating" value="<?php if(isset($rating)) { echo $rating; } ?>"><?php if($missingRating) { echo "<span style='color: red;'>Missing rating.</span><br />"; } ?>
+                    <label for="summary">Summary: </label><br />
+                    <textarea name="summary" cols="40" rows="5"><?php if(isset($summary)) { echo $summary; } ?></textarea><br /><?php if($missingSummary) { echo "<span style='color: red;'>Missing summary.</span><br />"; } ?>
+                    <label for="story">Story text: </label><br />
+                    <textarea name="story" cols="40" rows="5"><?php if(isset($story)) { echo $story; } ?></textarea><br /><?php if($missingStory) { echo "<span style='color: red;'>Missing story.</span><br />"; } ?>
+					<input type="submit" name="submit" value="Submit story" />
                 </form>
             </div>
         </div>
