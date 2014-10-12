@@ -32,9 +32,9 @@
 
         <div id="wrapper">
             <div id="goodbye">
+				<a href="index.html"><img src="res/logo.png" alt="The Writer's Grind Logo" /></a>
                 <h1>See you soon!</h1>
-                <img src="res/logout.png" alt="Us waving you goodbye"/>
-                <a href="index.html"><p>Click here to return to the homepage</p></a>
+                <img src="res/logout.png" id="goodbyeimg" alt="Us waving you goodbye"/>
             </div>
         </div>
 

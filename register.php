@@ -105,7 +105,7 @@
                             $insertStmt->bindParam(3, $emailregister);
                             $insertStmt->bindParam(4, $bioregister);
                             $insertStmt->execute();
-                            echo "User created!";
+							header("Location:index.php");
                         }
                         
                         $dbh = null;
@@ -116,39 +116,36 @@
             }
         ?>
 
-        <nav>
-            <ul>
-                <li>Browse</li>
-                <li>Create</li>
-                <li>    
-                    <form>
-                        <label for="search">Search: </label>
-                        <input type="text" name="search">
-                        <input type="Submit" name="submit" value="Search">
-                    </form>
-                </li>
-            </ul>
-        </nav>
-
-        
-        <!-- Add your site or application content here -->
-
-        <form name="register" action="register.php" method="POST">
-            <label for="username">Username: </label>
-            <input type="text" name="usernameregister" maxlength="20"> <?php if($takenusername) { echo "<span style='color: red;'>Username is taken.</span"; } ?>
-            <label for="email">E-Mail: </label>
-            <input type="text" name="emailregister" maxlength="80">
-            <label for="password">Password: </label>
-            <input type="password" name="passwordregister" maxlength="20">
-            <label for="confirm">Confirm: </label>
-            <input type="password" name="confirmregister" maxlength="20"> <?php if($wrongpasswords) { echo "<span style='color: red;'>Passwords do not match.</span"; } ?>
-            <label for="bio">Biography: </label>
-            <input type="text" name="bioregister" maxlength="300">
-            <input type="submit" value="Create an account" name="submitregister" />
-        </form>
+        <?php
+			if (!isset($_POST['submitregister'])) {
+		?>
+			<!-- Add your site or application content here -->
+			<h3>Please complete the form below.</h3>
+			<h5>Upon completion, you will be redirected to the main page where the login is in the top right hand corner.</h5>
+			<form name="register" action="register.php" method="POST">
+				<label for="username">Username: </label>
+				<input type="text" name="usernameregister" maxlength="20"> <?php if($takenusername) { echo "<span style='color: red;'>Username is taken.</span"; } ?>
+				<label for="email">E-Mail: </label>
+				<input type="text" name="emailregister" maxlength="80">
+				<label for="password">Password: </label>
+				<input type="password" name="passwordregister" maxlength="20">
+				<label for="confirm">Confirm: </label>
+				<input type="password" name="confirmregister" maxlength="20"> <?php if($wrongpasswords) { echo "<span style='color: red;'>Passwords do not match.</span"; } ?>
+				<label for="bio">Biography: </label>
+				<input type="text" name="bioregister" maxlength="300">
+				<input type="submit" value="Create an account" name="submitregister" />
+			</form>
+		<?php	
+			} else {
+		?>
+			<h2>New account created!</h2>
+			<h3><a href="index.php">Click here to go to the main screen to log in.</a></h3>
+		<?php	
+			}
+		?>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-        <script src="js/plugins.js"></script>->
+        <script src="js/plugins.js"></script>
         <script>
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
             function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;

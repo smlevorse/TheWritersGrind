@@ -98,7 +98,10 @@
                     }
                 ?>
             </div>
-                 <nav>
+                 
+
+            <div id="body">
+			<nav>
                     <ul>
                         <li>Browse</li>
                         <li>Create</li>
@@ -111,8 +114,6 @@
                         </li>
                     </ul>
                 </nav>
-
-            <div id="body">
                 <div id="links">
                     <ul>
                         <li><a href="plotgen.php">Plot Generator</a></li>

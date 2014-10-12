@@ -117,6 +117,19 @@
             <div id="body">
                 <!--if no username get variable is passed, assume they want their own profile.-->
 				<?php
+					#function deleteStory(id) {
+					#	$user = "wj2389sj";
+					#	$pass = "R298fjsk3";
+					#	$host = "localhost";
+					#	$dbname = "simplesocialnetwork";
+						
+						#try {
+					#		$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+					#	} catch (PDOException $e) {
+					#		echo $e->getMessage();
+					#	}
+					#}
+				
 					$user = "wj2389sj";
 					$pass = "R298fjsk3";
 					$host = "localhost";

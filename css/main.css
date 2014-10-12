@@ -147,6 +147,12 @@ h1{
 	text-align: center;
 }
 
+#goodbyeimg {
+	position: fixed;
+	bottom: 0px;
+	margin-left: -193.5px;
+}
+
 #goodbye{
 	font-family: 'Dancing Script', cursive;
 	color:#303000;
@@ -157,6 +163,8 @@ h1{
 	text-align: center;
 	vertical-align: bottom;
 	text-decoration: none;
+	height: 80%;
+	margin-top: 15%;
 }
 
 #links{
