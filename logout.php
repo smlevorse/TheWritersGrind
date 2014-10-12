@@ -31,50 +31,6 @@
         <!-- Add your site or application content here -->
 
         <div id="wrapper">
-            <div id="head">
-                <a href="index.php"><img id="logo" src="res/logo.png" alt="The Writer's Grind logo"/></a>
-                <?php
-                    if (!isset($_SESSION['username'])) {
-                        #They're not logged in.
-                ?>
-                    <div id="login"> 
-                        <form name="login" action="index.php" method="POST">
-                            <label for="username">Username: </label>
-                            <input type="text" name="username">
-                            <label for="password">Password: </label>
-                            <input type="password" name="password">
-                            <input type="Submit" name="submit" value="Submit"/>
-                        </form>
-                        <a href="register.php">Register for an account</a>
-                    </div>
-                    <?php
-                        } else {
-                            #They're signed in.
-                    ?>
-                    <div id="login">
-                        Welcome back, <a href="profile.php?username=<?php echo $_SESSION['username']; ?>"> <?php echo $_SESSION['username']; ?> </a>
-                        <form action="logout.php">
-                            <input type="submit" value="Logout">
-                        </form>
-                    </div>
-                    <?php
-                        }
-                    ?>
-                </div>
-                 <nav>
-                    <ul>
-                        <li>Browse</li>
-                        <li>Create</li>
-                        <li>    
-                            <form>
-                                <label for="search">Search: </label>
-                                <input type="text" name="search">
-                                <input type="Submit" name="submit" value="Search">
-                            </form>
-                        </li>
-                    </ul>
-                </nav>
-
                 <div id="body">
                     <h1 id="goodbye">See you soon!</h1>
                     <img src="res/logout.png" alt="Us waving you goodbye"/>
