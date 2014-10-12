@@ -110,7 +110,9 @@
 			
 			<div id="body">
 				<h1>Randomized plot:</h1>
-				
+				<?php
+					
+				?>
  
 			</div>
 			<div id="footer">
