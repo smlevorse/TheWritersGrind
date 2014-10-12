@@ -96,7 +96,6 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-
 .logo{
 	display:inline;
 }
@@ -119,6 +118,25 @@ div #login h1{
 input{
 	display: block;
 }
+
+#wrapper {
+	width: 90%;
+	margin-left: 5%;
+	height: 100%;
+	border: 0px;
+}
+
+#body {
+	position: relative;
+	width: 100%;
+}
+
+#footer {
+	width: 100%;
+	text-align: center;
+	margin-top: 10px;
+}
+
 
 /* ==========================================================================
    Helper classes
