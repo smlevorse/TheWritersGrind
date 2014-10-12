@@ -113,7 +113,37 @@
                 </nav>
 
             <div id="body">
-                
+                <?php
+					if (isset($_GET['id'])) {
+						#storyid was passed via a get request
+						
+						$user = "wj2389sj";
+						$pass = "R298fjsk3";
+						$host = "localhost";
+						$dbname = "simplesocialnetwork";
+						#$username = $_POST['username'];
+						#$password = md5($_POST['password']);
+						
+						try {
+							$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+							
+							$storystmt = $dbh->prepare("SELECT * FROM stories WHERE id = ? LIMIT 1");
+							$id = $_GET['id'];
+							echo $storyid;
+							$storystmt->bindParam(1, $id);
+							$storystmt->setFetchMode(PDO::FETCH_ASSOC);
+							$storystmt->execute();
+							
+							$result = $storystmt->fetch();
+							echo "<h1>" . $result["title"] . "</h1>";
+							echo '<h4>Author: <a href="profile.php?username=' . $_SESSION['username'] . '">' . $result["author"] . '</a></h4>';
+							echo "Summary: " . $result["summary"] . "<hr />";
+							echo $result["story"];
+						} catch (PDOException $e) {
+							echo $e->getMessage();
+						}
+					}
+				?>
 			</div>
             <div id="footer">
                 &copy; 2014 Nathan Holt, Sean Levorse, Maranda De Stefano.
