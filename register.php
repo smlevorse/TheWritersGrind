@@ -1,3 +1,12 @@
+<?php
+	session_start();
+	
+	if (isset($_SESSION['username']) && isset($_SESSION['userID'])) {
+		#They're logged in already! Redirect them to the index page.
+		header("Location:index.php");
+	}
+?>
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->

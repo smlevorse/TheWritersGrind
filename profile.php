@@ -1,3 +1,10 @@
+<?php
+	session_start();
+	if (!isset($_SESSION['username'])) {
+		#They're not logged in. Redirect to index.php
+		header("Location:index.php");
+	}
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -93,9 +100,36 @@
 		        		</li>
 		        	</ul>
 		        </nav>
+
             </div>
             <div id="body">
-                <!--laceholder-->
+                <!--if no username get variable is passed, assume they want their own profile.-->
+				<?php
+					$user = "wj2389sj";
+					$pass = "R298fjsk3";
+					$host = "localhost";
+					$dbname = "simplesocialnetwork";
+					$username = $_POST['username'];
+					$password = md5($_POST['password']);
+					
+					if (!isset($_GET['username'])) {
+						try {
+							$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+				
+							$stmt = $dbh->prepare("SELECT * FROM users WHERE username = ?");
+							$username = $_SESSION['username'];
+							$stmt->bindParam(1, $username);
+							$stmt->setFetchMode(PDO::FETCH_ASSOC);
+							$stmt->execute();
+							$result = $stmt->fetch();
+							echo "Username: " . $result['username'] . "<br />";
+							echo "Total submissions: " . $result['submissions'] . "<br />";
+							echo "Biography: " . $result['bio'] . "<br />";
+						} catch (PDOException $e) {
+							echo $e->getMessage();
+						}
+					}
+				?>
             </div>
             <div id="footer">
                 &copy; 2014 Nathan Holt, Sean Levorse, Maranda De Stefano.
