@@ -23,6 +23,7 @@
 
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
         <link href='http://fonts.googleapis.com/css?family=Rokkitt|Yanone+Kaffeesatz|Pacifico|Dancing+Script:400,700' rel='stylesheet' type='text/css'>
         <script src="js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
@@ -122,18 +123,30 @@
 			<!-- Add your site or application content here -->
 			<h3>Please complete the form below.</h3>
 			<h5>Upon completion, you will be redirected to the main page where the login is in the top right hand corner.</h5>
-			<form name="register" action="register.php" method="POST">
-				<label for="username">Username: </label>
-				<input type="text" name="usernameregister" maxlength="20"> <?php if($takenusername) { echo "<span style='color: red;'>Username is taken.</span"; } ?>
-				<label for="email">E-Mail: </label>
-				<input type="text" name="emailregister" maxlength="80">
-				<label for="password">Password: </label>
-				<input type="password" name="passwordregister" maxlength="20">
-				<label for="confirm">Confirm: </label>
-				<input type="password" name="confirmregister" maxlength="20"> <?php if($wrongpasswords) { echo "<span style='color: red;'>Passwords do not match.</span"; } ?>
-				<label for="bio">Biography: </label>
-				<input type="text" name="bioregister" maxlength="300">
-				<input type="submit" value="Create an account" name="submitregister" />
+			<form name="register" class="pure-form pure-form-aligned" action="register.php" method="POST">
+				<div class="pure-control-group">
+					<label for="username">Username: </label>
+					<input type="text" name="usernameregister" maxlength="20" required> <?php if($takenusername) { echo "<span style='color: red;'>Username is taken.</span"; } ?>
+				</div>
+				<div class="pure-control-group">
+					<label for="email">E-Mail: </label>
+					<input type="text" name="emailregister" maxlength="80" required>
+				</div>
+				<div class="pure-control-group">
+					<label for="password">Password: </label>
+					<input type="password" name="passwordregister" maxlength="20" required>
+				</div>
+				<div class="pure-control-group">
+					<label for="confirm">Confirm: </label>
+					<input type="password" name="confirmregister" maxlength="20" required> <?php if($wrongpasswords) { echo "<span style='color: red;'>Passwords do not match.</span"; } ?>
+				</div>
+				<div class="pure-control-group">
+					<label for="bio">Biography: </label>
+					<input type="text" name="bioregister" maxlength="300" required>
+				</div>
+				<div class="pure-controls">
+					<button type="submit" class="pure-button pure-button-primary"name="submitregister"> Create an Account </button>
+					</div>
 			</form>
 		<?php	
 			} else {

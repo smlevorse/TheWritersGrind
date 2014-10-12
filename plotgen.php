@@ -112,7 +112,37 @@
 			<div id="body">
 				<h1>Randomized plot:</h1>
 				<?php
+					$character = "";
+					$plot = "";
+					$user = "wj2389sj";
+					$pass = "R298fjsk3";
+					$host = "localhost";
+					$dbname = "simplesocialnetwork";
+					$username = $_POST['username'];
+					$password = md5($_POST['password']);
 					
+					try {
+					$dbh = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
+					
+					$stmt = $dbh->prepare("SELECT text FROM storyideas WHERE type = 'character' ORDER BY RAND() LIMIT 1");
+					$stmt->setFetchMode(PDO::FETCH_ASSOC);
+					$stmt->execute();
+					
+					$result = $stmt->fetch();
+					$character = $result["text"];
+					
+					$stmt2 = $dbh->prepare("SELECT text FROM storyideas WHERE type = 'plot' ORDER BY RAND() LIMIT 1");
+					
+					$stmt2->setFetchMode(PDO::FETCH_ASSOC);
+					$stmt2->execute();
+					
+					$result2 = $stmt2->fetch();
+					$plot = $result2["text"];
+					
+					echo "<h2><center>" . $character . " " . $plot . "</center></h2>";
+					} catch (PDOException $e) {
+					echo $e->getMessage();
+					}
 				?>
  
 			</div>
