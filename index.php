@@ -97,7 +97,20 @@
 					}
 				?>
 			</div>
-			
+			     <nav>
+                    <ul>
+                        <li>Browse</li>
+                        <li>Create</li>
+                        <li>    
+                            <form>
+                                <label for="search">Search: </label>
+                                <input type="text" name="search">
+                                <input type="Submit" name="submit" value="Search">
+                            </form>
+                        </li>
+                    </ul>
+                </nav>
+
 			<div id="body">
 				
 
